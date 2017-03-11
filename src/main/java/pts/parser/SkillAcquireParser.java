@@ -3,9 +3,9 @@ package pts.parser;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import xml.Item;
 import xml.SkillAcquireData;
 import xml.SkillAcquireData.AcquireList;
-import xml.SkillAcquireData.Item;
 import xml.SkillAcquireData.Skill;
 
 public class SkillAcquireParser extends AbstractParser<SkillAcquireData> {
@@ -30,10 +30,7 @@ public class SkillAcquireParser extends AbstractParser<SkillAcquireData> {
 							field("skill_name", v -> skill.skill_name = v.asString()).
 							field("item_needed", v -> {
 								v.asArray().forEach(v0 -> {
-									final Item item = new Item();
-									item.name = v0.get(0).asString();
-									item.count = v0.get(1).asInteger();
-									skill.item_needed.add(item);
+									skill.item_needed.add(new Item(v0.get(0).asString(), v0.get(1).asInteger()));
 								});
 							}).
 							field((name, value) -> System.out.println(name)).

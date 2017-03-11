@@ -34,9 +34,4 @@ public class RecipeData {
 		@XmlElement(name = "item")
 		public List<Item> npc_fee = new LinkedList<>();
 	}
-	
-	public static class Item {
-		@XmlAttribute public String name;
-		@XmlAttribute public int count;
-	}
 }

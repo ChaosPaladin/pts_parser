@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import data.lexer.Lexer;
+import xml.Item;
 import xml.MultiSellData;
 import xml.MultiSellData.Barter;
-import xml.MultiSellData.Item;
 import xml.MultiSellData.MultiSell;
 
 public class MultiSellParser extends AbstractParser<MultiSellData> {

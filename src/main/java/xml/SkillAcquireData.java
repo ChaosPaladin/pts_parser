@@ -27,9 +27,4 @@ public class SkillAcquireData {
 		@XmlElement(name = "item")
 		public LinkedList<Item> item_needed = new LinkedList<>();
 	}
-	
-	public static class Item {
-		@XmlAttribute public String name;
-		@XmlAttribute public int count;
-	}
 }

@@ -3,23 +3,12 @@ package pts.parser;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import data.type.DValue;
+import xml.Item;
 import xml.RecipeData;
-import xml.RecipeData.Item;
 import xml.RecipeData.Recipe;
 
 public class RecipeParser extends AbstractParser<RecipeData> {
 
-	public static Item item(DValue value) {
-		return item(value.get(0).asString(), value.get(1).asInteger());
-	}
-	
-	public static Item item(String name, int count) {
-		final Item item = new Item();
-		item.name = name;
-		item.count = count;
-		return item;
-	}
 	@Override
 	public RecipeData parse() {
 		RecipeData data = new RecipeData();
@@ -56,19 +45,19 @@ public class RecipeParser extends AbstractParser<RecipeData> {
 					}
 					case "npc_fee": {
 						field.value.asArray().forEach(value -> {
-							recipe.npc_fee.add(item(value));
+							recipe.npc_fee.add(new Item(value.get(0).asString(), value.get(1).asInteger()));
 						});
 						break;
 					}
 					case "material": {
 						field.value.asArray().forEach(value -> {
-							recipe.material.add(item(value));
+							recipe.material.add(new Item(value.get(0).asString(), value.get(1).asInteger()));
 						});
 						break;
 					}
 					case "product": {
 						field.value.asArray().forEach(value -> {
-							recipe.product.add(item(value));
+							recipe.product.add(new Item(value.get(0).asString(), value.get(1).asInteger()));
 						});
 						break;
 					}

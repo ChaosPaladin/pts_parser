@@ -27,16 +27,4 @@ public class MultiSellData {
 		@XmlElement public List<Item> production = new LinkedList<>();
 		@XmlAttribute public String adena;
 	}
-
-	public static class Item {
-		@XmlAttribute public String name;
-		@XmlAttribute public int count;
-		
-		public Item() {}
-		
-		public Item(String name, int count) {
-			this.name = name;
-			this.count = count;
-		}
-	}
 }
