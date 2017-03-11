@@ -27,8 +27,8 @@ public class RecipeParser extends AbstractParser<RecipeData> {
 			parse(Paths.get("data", "recipe.txt")).forEach(record -> {
 				final Recipe recipe = new Recipe();
 				data.recipe.add(recipe);
-				recipe.name = record.get(1).asString();
-				recipe.id = record.get(0).asInteger();
+				recipe.name = record.get(0).asString();
+				recipe.id = record.get(1).asInteger();
 				record.fields().forEach((key, field) -> {
 					switch(key) { 
 					case "iscommonrecipe":
