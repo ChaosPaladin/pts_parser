@@ -90,6 +90,11 @@ public class Lexer {
 						readch();// /
 					}
 					continue;
+				} else if(next() == '/') {
+					readch();
+					while(next() != '\n')
+						readch();
+					continue;
 				} else
 					throw new RuntimeException("syntax error: awaiting comment " + line + ":" + pos);
 			}
