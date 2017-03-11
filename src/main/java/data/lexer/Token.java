@@ -11,8 +11,11 @@ public abstract class Token {
 		t_open_array,//{
 		t_close_array,//}
 		t_string,
+		t_lbrace, //(
+		t_rbrace, //)
 		t_eof,
-		t_reference//@
+		t_reference, //@
+		t_colon //:
 	}
 
 	public final Type type;
@@ -70,7 +73,40 @@ public abstract class Token {
 		}
 	}
 	
-	public float asFloat() {
+	public static final class TColon extends Token {
+		private TColon() {
+			super(Type.t_colon);
+		}
+		
+		@Override
+		public String toString() {
+			return "TColon";
+		}
+	}
+	
+	public static final class TLBrace extends Token {
+		private TLBrace() { 
+			super(Type.t_lbrace);
+		}
+		
+		@Override
+		public String toString() {
+			return "TLBrace";
+		}
+	}
+	
+	public static final class TRBrace extends Token {
+		private TRBrace() { 
+			super(Type.t_rbrace);
+		}
+		
+		@Override
+		public String toString() {
+			return "TRBrace";
+		}
+	}
+	
+	public double asFloat() {
 		return 0;
 	}
 	
@@ -86,4 +122,8 @@ public abstract class Token {
 	public final static TOpenArray open_array = new TOpenArray();
 	public final static TCloseArray close_array = new TCloseArray();
 	public final static TSemicolon semicolon = new TSemicolon();
+	public final static TColon colon = new TColon();
+	
+	public final static TLBrace lbrace = new TLBrace();
+	public final static TRBrace rbrace = new TRBrace();
 }

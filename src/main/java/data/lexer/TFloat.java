@@ -1,20 +1,21 @@
 package data.lexer;
 
 public class TFloat extends Token {
-	public final float value;
+	public final double value;
 	
 	public TFloat(String value) {
-		this(Float.parseFloat(value));
+		this(Double.parseDouble(value));
 	}
 	
-	public TFloat(float value) {
+	public TFloat(double d) {
 		super(Token.Type.t_float);
-		this.value = value;
+		this.value = d;
 	}
 	
-	public float asFloat() {
+	public double asFloat() {
 		return value;
 	}
+	
 	@Override
 	public String toString() {
 		return "TDouble("+value+")";

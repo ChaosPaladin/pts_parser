@@ -1,7 +1,11 @@
 package data.type;
 
 public class DValue {
-
+	
+	public DValue get(String key) {
+		throw new RuntimeException("not array " + this);
+	}
+	
 	public DValue get(int index) {
 		throw new RuntimeException("not array " + this);
 	}
@@ -18,7 +22,7 @@ public class DValue {
 		return 0;
 	}
 	
-	public float asFloat() {
+	public double asFloat() {
 		return 0;
 	}
 

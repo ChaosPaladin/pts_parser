@@ -207,7 +207,7 @@ public class ItemRecord {
 	@XmlAttribute
 	public int magicalDefense;
 	@XmlAttribute
-	public float hitModify;
+	public double hitModify;
 	@XmlAttribute
 	public int avoidModify;
 	@XmlAttribute

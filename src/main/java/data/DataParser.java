@@ -107,6 +107,12 @@ public class DataParser {
 			case t_string:
 			case t_word:
 			case t_int: {
+				if(scanner.next() == Token.colon) {
+					String key = scanner.current().asString();
+					scanner.scan();//skip : colon
+					array.put(key, parseSet(scanner));
+					break;
+				}
 				array.add(parseValue(scanner.current()));
 				if(scanner.next() == Token.semicolon)
 					scanner.scan();//skip ;
@@ -122,6 +128,19 @@ public class DataParser {
 			}
 		}
 		throw new RuntimeException("error parser: eof");
+	}
+	
+	private static DValue parseSet(Scanner scanner) throws IOException {
+		DArray set = new DArray();
+		if(scanner.next() != Token.lbrace)
+			throw new RuntimeException("await open set lbrace (" + scanner.pos());
+		scanner.scan();//skip (
+		while(scanner.next() != Token.rbrace)
+			set.add(parseValue(scanner.scan()));
+		if(scanner.next() != Token.rbrace)
+			throw new RuntimeException("await close set rbrace (" + scanner.pos());
+		scanner.scan();//skip )
+		return set;
 	}
 	
 	private static DValue parseValue(Token token) {

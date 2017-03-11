@@ -114,6 +114,9 @@ public class Lexer {
 				readch();//skip ]
 			return new TString(buffer.toString());
 		}
+		case '(': return Token.lbrace;
+		case ')': return Token.rbrace;
+		case ':': return Token.colon;
 		case '=': return Token.eq;
 		case ';': return Token.semicolon;
 		case '{': return Token.open_array;

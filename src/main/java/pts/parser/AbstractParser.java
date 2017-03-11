@@ -1,19 +1,40 @@
 package pts.parser;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import data.DataParser;
-import data.lexer.Scanner;
 import data.type.DField;
 import data.type.DRecord;
 import data.type.DValue;
 
 public abstract class AbstractParser<T> extends DataParser {
-
+	private HashMap<String, HashSet<String>> collector = new HashMap<>();
+	
+	public Consumer<DValue> collector(final String key) {
+		if(!collector.containsKey(key))
+			collector.put(key, new HashSet<>());
+		return value -> {
+			collector.get(key).add(value.asString().trim());
+		};
+	}
+	public void collect(String key, String value) {
+		if(!collector.containsKey(key))
+			collector.put(key, new HashSet<>());
+		collector.get(key).add(value);
+	}
+	
+	public void print(String key) {
+		collector.get(key).forEach(System.out::println);
+	}
+	
+	
 	public abstract T parse();
 	
 	
@@ -74,7 +95,7 @@ public abstract class AbstractParser<T> extends DataParser {
 	protected Consumer<DValue> setF(Object obj, String name) {
 		return value -> {
 			try {
-				obj.getClass().getDeclaredField(name).setFloat(obj, value.asFloat());
+				obj.getClass().getDeclaredField(name).setDouble(obj, value.asFloat());
 			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 				e.printStackTrace();
 			}
@@ -119,7 +140,7 @@ public abstract class AbstractParser<T> extends DataParser {
 			return this;
 		}
 		
-		public void parse() {
+		public RecordParser parse() {
 			record.fields().forEach((name, field) -> {
 				for(BaseScanner<DField> s : fscan)
 					if(s.test(field)) {
@@ -136,6 +157,11 @@ public abstract class AbstractParser<T> extends DataParser {
 						break;
 					}
 			});
+			return this;
 		}
+	}
+	
+	public static Path data(String file) {
+		return Paths.get("data", file);
 	}
 }

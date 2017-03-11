@@ -1,9 +1,9 @@
 package data.type;
 
 public class DFloat extends DValue {
-	public float value;
+	public double value;
 	
-	public DFloat(float value) {
+	public DFloat(double value) {
 		this.value = value;
 	}
 	
@@ -13,7 +13,7 @@ public class DFloat extends DValue {
 	}
 	
 	@Override
-	public float asFloat() {
+	public double asFloat() {
 		return value;
 	}
 }

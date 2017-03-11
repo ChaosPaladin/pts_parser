@@ -8,7 +8,7 @@ public class DInteger extends DValue {
 	}
 	
 	@Override
-	public float asFloat() {
+	public double asFloat() {
 		return value;
 	}
 	
