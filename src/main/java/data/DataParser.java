@@ -1,6 +1,7 @@
 package data;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,10 @@ import data.type.DValue;
 import data.type.DWord;
 
 public class DataParser {
+	
+	public static List<DRecord> parse(Path path) throws IOException {
+		return parse(new Lexer(path));
+	}
 	
 	public static List<DRecord> parse(Lexer lexer) throws IOException {
 		return parse(new Scanner(lexer));
@@ -45,6 +50,11 @@ public class DataParser {
 			switch(scanner.current().type) {
 			case t_word: {
 				String word = scanner.current().asString();
+				if(word.endsWith("_begin")) {
+					word = word.substring(0, word.length() - 6);
+					record.add(parseRecord(scanner, word));
+					break;
+				}
 				if(word.equalsIgnoreCase(type+"_end"))
 					return record;
 				if(scanner.next() == Token.eq) {

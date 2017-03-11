@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DRecord {
-	private final ArrayList<DValue> header = new ArrayList<>();
+	public final ArrayList<DValue> header = new ArrayList<>();
 	
 	private final HashMap<String, DField> fields = new HashMap<>();
 	
@@ -47,5 +47,11 @@ public class DRecord {
 
 	public int asInteger(String name) {
 		return fields.get(name).value.asInteger();
+	}
+	
+	public final ArrayList<DRecord> records = new ArrayList<>();
+
+	public void add(DRecord record) {
+		this.records.add(record);
 	}
 }
