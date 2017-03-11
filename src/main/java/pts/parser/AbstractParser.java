@@ -51,6 +51,46 @@ public abstract class AbstractParser<T> extends DataParser {
 		}
 	}
 	
+	protected Consumer<DValue> setS(Object obj, String name) {
+		return value -> {
+			try {
+				obj.getClass().getDeclaredField(name).set(obj, value.asString());
+			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		};
+	}
+	
+	protected Consumer<DValue> setB(Object obj, String name) {
+		return value -> {
+			try {
+				obj.getClass().getDeclaredField(name).setBoolean(obj, Boolean.parseBoolean(value.asString()));
+			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		};
+	}
+	
+	protected Consumer<DValue> setF(Object obj, String name) {
+		return value -> {
+			try {
+				obj.getClass().getDeclaredField(name).setFloat(obj, value.asFloat());
+			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		};
+	}
+	
+	protected Consumer<DValue> setI(Object obj, String name) {
+		return value -> {
+			try {
+				obj.getClass().getDeclaredField(name).setInt(obj, value.asInteger());
+			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		};
+	}
+	
 	private <X> BaseScanner<X> scanner(Predicate<X> p, Consumer<X> f) {
 		return new BaseScanner<>(p, f);
 	}
@@ -86,6 +126,7 @@ public abstract class AbstractParser<T> extends DataParser {
 						s.apply(field);
 						return;
 					}
+				throw new RuntimeException("unknown field " + record.type + " " + name);
 			});
 			
 			record.records.forEach(record -> {

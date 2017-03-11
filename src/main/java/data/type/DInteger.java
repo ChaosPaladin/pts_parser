@@ -16,4 +16,9 @@ public class DInteger extends DValue {
 	public int asInteger() {
 		return value;
 	}
+	
+	@Override
+	public String asString() {
+		return ""+value;
+	}
 }
