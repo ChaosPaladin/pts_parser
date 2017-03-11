@@ -9,7 +9,9 @@ public class Main {
 	public static void main(String...args) {
 		//MultiSellParser parser = new MultiSellParser();
 		//JAXB.marshal(parser.parse(), Paths.get("xml", "multisell.xml").toFile());
-		RecipeParser parser = new RecipeParser();
-		JAXB.marshal(parser.parse(), Paths.get("xml", "recipe.xml").toFile());
+		//RecipeParser parser = new RecipeParser();
+		//JAXB.marshal(parser.parse(), Paths.get("xml", "recipe.xml").toFile());
+		SkillAcquireParser parser = new SkillAcquireParser();
+		JAXB.marshal(parser.parse(), Paths.get("xml", "skillacquire.xml").toFile());
 	}
 }
